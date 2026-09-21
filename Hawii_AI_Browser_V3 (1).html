@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080812">
+<title>Hawii AI — Trading Browser</title>
+<style>
+:root{--bg:#070811;--panel:#0e1220;--panel2:#121728;--line:#252c42;--text:#f5f7ff;--muted:#8992a8;--purple:#8b6cff;--green:#35d07f;--red:#ff5c6c;--gold:#e7c76b}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0%,#17102b 0,#070811 38%);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.app{min-height:100vh;display:grid;grid-template-columns:245px 1fr}.side{border-right:1px solid var(--line);background:rgba(9,11,20,.92);padding:18px;position:sticky;top:0;height:100vh}.brand{font-size:23px;font-weight:900;letter-spacing:.2px}.brand span{color:var(--purple)}.tag{font-size:10px;color:var(--muted);margin-top:3px}.nav{margin-top:28px;display:grid;gap:8px}.nav button{border:1px solid transparent;background:transparent;color:#b9c0d2;text-align:left;padding:12px;border-radius:10px;cursor:pointer}.nav button.active,.nav button:hover{background:#17152a;border-color:#302950;color:#fff}.security{position:absolute;left:18px;right:18px;bottom:18px;border:1px solid #2c3550;border-radius:13px;padding:12px;background:#0c1020}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-right:7px}.main{padding:20px;max-width:1500px;width:100%;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:18px}.top h1{font-size:20px;margin:0}.top small{color:var(--muted)}.actions{display:flex;gap:8px}.btn{border:1px solid var(--line);background:var(--panel);color:#fff;padding:10px 13px;border-radius:9px;font-weight:800;cursor:pointer}.btn.green{background:#123522;border-color:#245f3d}.btn.red{background:#35131a;border-color:#70303a}.btn.purple{background:#201743;border-color:#4a3a85}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.card,.panel{background:linear-gradient(180deg,rgba(17,21,35,.96),rgba(12,15,26,.96));border:1px solid var(--line);border-radius:15px}.card{padding:15px}.label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.big{font-size:25px;font-weight:900;margin-top:7px}.up{color:var(--green)}.down{color:var(--red)}.layout{display:grid;grid-template-columns:1.35fr .9fr;margin-top:12px;gap:12px}.panel{padding:16px}.panel h2{font-size:14px;margin:0 0 14px}.chart{height:315px;border-radius:12px;border:1px solid #20263a;background:linear-gradient(180deg,#0b0f1b,#090b14);position:relative;overflow:hidden}.gridlines{position:absolute;inset:0;background-image:linear-gradient(#1c2335 1px,transparent 1px),linear-gradient(90deg,#1c2335 1px,transparent 1px);background-size:100% 25%,12.5% 100%;opacity:.45}.chartline{position:absolute;left:0;right:0;top:0;bottom:0}.candle{position:absolute;width:7px;border-radius:2px}.wick{position:absolute;width:1px;background:#8893aa;left:3px}.signalbox{position:absolute;right:15px;top:15px;padding:10px 12px;border-radius:10px;background:#151b2c;border:1px solid #303952}.signal{font-size:25px;font-weight:950}.meters{display:grid;gap:14px}.mrow{display:grid;gap:6px}.mhead{display:flex;justify-content:space-between;font-size:12px}.meter{height:8px;background:#252b3d;border-radius:20px;overflow:hidden}.fill{height:100%;background:var(--purple);border-radius:20px}.greenfill{background:var(--green)}.goldfill{background:var(--gold)}.settings{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:5px}.field input,.field select{width:100%;background:#0b0f1b;border:1px solid #30384f;color:#fff;border-radius:9px;padding:10px}.full{grid-column:1/-1}.checks{display:grid;gap:8px}.check{display:flex;justify-content:space-between;align-items:center;background:#0b0f1b;border:1px solid #242b3f;padding:10px;border-radius:9px;font-size:12px}.switch{width:38px;height:21px;border-radius:20px;background:#394156;padding:3px}.switch i{display:block;width:15px;height:15px;background:#fff;border-radius:50%}.switch.on{background:#20794b}.switch.on i{margin-left:17px}.log{height:180px;overflow:auto;background:#080b13;border:1px solid #20273a;border-radius:10px;padding:12px;font:12px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace;color:#b7c0d5}.statusrow{display:flex;gap:8px;flex-wrap:wrap}.pill{padding:7px 10px;border-radius:99px;background:#101629;border:1px solid #2b3550;font-size:11px}.footer{color:#687188;font-size:11px;margin-top:12px}.hidden{display:none}@media(max-width:1050px){.app{grid-template-columns:80px 1fr}.side{padding:14px}.brand{font-size:16px}.tag,.nav span,.security{display:none}.nav button{text-align:center}.grid4{grid-template-columns:repeat(2,1fr)}.layout{grid-template-columns:1fr}}@media(max-width:650px){.app{display:block}.side{height:auto;position:relative;border-right:0;border-bottom:1px solid var(--line)}.nav{grid-template-columns:repeat(4,1fr);margin-top:15px}.main{padding:12px}.top{align-items:flex-start;flex-direction:column}.grid4{grid-template-columns:1fr 1fr}.settings{grid-template-columns:1fr}.full{grid-column:auto}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+  <div class="brand">Hawii <span>AI</span></div><div class="tag">AI TRADING BROWSER</div>
+  <div class="nav">
+    <button class="active" onclick="showTab('dashboard',this)">⌂ <span>Dashboard</span></button>
+    <button onclick="showTab('strategy',this)">◈ <span>Strategy</span></button>
+    <button onclick="showTab('connections',this)">⌁ <span>Connections</span></button>
+    <button onclick="showTab('logs',this)">≡ <span>Activity</span></button>
+  </div>
+  <div class="security"><div><span class="dot"></span><b>SAFE MODE</b></div><div class="tag">Live execution locked until authorized.</div></div>
+</aside>
+
+<main class="main">
+<section id="dashboard">
+  <div class="top"><div><h1>Hawii AI Control Center</h1><small>JustMarkets MT5 • multi-timeframe signal engine</small></div><div class="actions"><button class="btn green" id="botBtn" onclick="toggleBot()">BOT ON</button><button class="btn red" onclick="kill()">EMERGENCY STOP</button></div></div>
+  <div class="statusrow" style="margin-bottom:12px"><div class="pill">● MT5 DEMO CONNECTED</div><div class="pill">TradingView READY</div><div class="pill">Telegram READY</div><div class="pill">LIVE LOCKED</div></div>
+  <div class="grid4">
+    <div class="card"><div class="label">Account equity</div><div class="big" id="equity">$1,000.00</div></div>
+    <div class="card"><div class="label">Today P/L</div><div class="big up" id="pnl">+$0.00</div></div>
+    <div class="card"><div class="label">Open trades</div><div class="big" id="trades">0</div></div>
+    <div class="card"><div class="label">Engine</div><div class="big" id="state">SCANNING</div></div>
+  </div>
+
+  <div class="layout">
+    <div class="panel">
+      <h2>Market monitor</h2>
+      <div class="chart">
+        <div class="gridlines"></div>
+        <div id="candles"></div>
+        <div class="signalbox"><div class="label">Current signal</div><div class="signal" id="signal">WAIT</div><small id="pair">EURUSD • M5</small></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h2>AI market strength</h2>
+      <div class="meters">
+        <div class="mrow"><div class="mhead"><span>Trend strength</span><b id="trendVal">65%</b></div><div class="meter"><div class="fill" id="trend" style="width:65%"></div></div></div>
+        <div class="mrow"><div class="mhead"><span>Volume strength</span><b id="volumeVal">72%</b></div><div class="meter"><div class="fill greenfill" id="volume" style="width:72%"></div></div></div>
+        <div class="mrow"><div class="mhead"><span>Volatility</span><b id="volVal">22%</b></div><div class="meter"><div class="fill goldfill" id="vol" style="width:22%"></div></div></div>
+      </div>
+      <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
+      <div class="settings">
+        <div class="field"><label>Risk %</label><input id="risk" type="number" value="1" min=".1" max="1" step=".1"></div>
+        <div class="field"><label>Stop loss %</label><input id="sl" type="number" value="1" min=".1" max="5" step=".1"></div>
+        <div class="field"><label>Take profit %</label><input id="tp" type="number" value="2" min=".1" max="10" step=".1"></div>
+        <div class="field"><label>Signal timeframe</label><select id="tf"><option>M5</option><option>M15</option><option>H1</option></select></div>
+        <div class="field full"><button class="btn purple" style="width:100%" onclick="saveSettings()">SAVE SETTINGS</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:12px"><h2>Execution log</h2><div class="log" id="log">[03:17:00] Hawii AI browser loaded<br>[03:17:01] MT5 demo connection: connected<br>[03:17:01] Security: live execution locked<br>[03:17:02] Strategy: EMA 9/21 + RSI(14) + MACD<br>[03:17:02] Risk engine: 1% risk / 1% SL / 2% TP / 1:2 R:R<br>[03:17:03] Waiting for confirmed signal...</div></div>
+</section>
+
+<section id="strategy" class="hidden">
+  <div class="top"><div><h1>Strategy & Risk</h1><small>Controls mirrored from the Hawii AI MT5 strategy</small></div></div>
+  <div class="panel">
+    <h2>Signal engine</h2>
+    <div class="checks">
+      <div class="check">EMA 9/21 crossover <span class="switch on"><i></i></span></div>
+      <div class="check">RSI(14) confirmation <span class="switch on"><i></i></span></div>
+      <div class="check">MACD confirmation <span class="switch on"><i></i></span></div>
+      <div class="check">Volume strength filter <span class="switch on"><i></i></span></div>
+      <div class="check">ADX trend-strength filter <span class="switch on"><i></i></span></div>
+      <div class="check">ATR volatility filter <span class="switch on"><i></i></span></div>
+      <div class="check">One signal per candle <span class="switch on"><i></i></span></div>
+      <div class="check">Duplicate-position protection <span class="switch on"><i></i></span></div>
+    </div>
+  </div>
+  <div class="panel" style="margin-top:12px"><h2>Protection layer</h2><div class="statusrow"><div class="pill">1% account risk</div><div class="pill">1% SL</div><div class="pill">2% TP</div><div class="pill">1:2 R:R</div><div class="pill">Margin check</div><div class="pill">Emergency kill switch</div><div class="pill">Demo-only startup</div></div></div>
+</section>
+
+<section id="connections" class="hidden">
+  <div class="top"><div><h1>Connections</h1><small>Integration status — no credentials are stored in this browser prototype</small></div></div>
+  <div class="panel"><h2>Broker / execution</h2><div class="statusrow"><div class="pill">JustMarkets MT5 — DEMO CONNECTED</div><div class="pill">Authenticated bridge — NOT CONFIGURED</div><div class="pill">Encrypted secrets — REQUIRED</div></div></div>
+  <div class="panel" style="margin-top:12px"><h2>Signal & notifications</h2><div class="statusrow"><div class="pill">TradingView — READY</div><div class="pill">Telegram — READY FOR TOKEN</div></div></div>
+  <div class="panel" style="margin-top:12px"><h2>Architecture</h2><p style="color:#aeb7cb;line-height:1.7">TradingView → Hawii AI Cloud → Telegram + authenticated JustMarkets MT5 bridge → this dashboard.</p></div>
+</section>
+
+<section id="logs" class="hidden">
+  <div class="top"><div><h1>Activity</h1><small>Local prototype event stream</small></div></div>
+  <div class="panel"><h2>System events</h2><div class="log" id="fullLog">No live broker events. Prototype is running in safe mode.</div></div>
+</section>
+
+<div class="footer">Hawii AI browser-like app • Prototype V2 • Live trading remains locked until a secure backend, authenticated MT5 bridge, encrypted secrets, and explicit live authorization are configured.</div>
+</main>
+</div>
+
+<script>
+let bot=true, killed=false;
+const logEl=()=>document.getElementById('log');
+function stamp(){return new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'})}
+function addLog(msg){const line='['+stamp()+'] '+msg; logEl().innerHTML+='<br>'+line; logEl().scrollTop=999999; document.getElementById('fullLog').innerHTML+='<br>'+line}
+function toggleBot(){if(killed)return;bot=!bot;document.getElementById('botBtn').textContent=bot?'BOT ON':'BOT OFF';document.getElementById('botBtn').className='btn '+(bot?'green':'');document.getElementById('state').textContent=bot?'SCANNING':'STOPPED';addLog('Bot '+(bot?'enabled':'disabled'))}
+function kill(){killed=true;bot=false;document.getElementById('botBtn').textContent='BOT OFF';document.getElementById('botBtn').className='btn';document.getElementById('state').textContent='KILLED';document.getElementById('signal').textContent='LOCKED';addLog('EMERGENCY KILL SWITCH ACTIVATED')}
+function saveSettings(){addLog('Settings saved: Risk '+risk.value+'% / SL '+sl.value+'% / TP '+tp.value+'% / TF '+tf.value)}
+function showTab(id,btn){document.querySelectorAll('main section').forEach(x=>x.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));btn.classList.add('active')}
+function makeCandles(){const box=document.getElementById('candles');let seed=48;for(let i=0;i<62;i++){seed+=(Math.random()-.47)*11;seed=Math.max(20,Math.min(82,seed));let h=8+Math.random()*35,w=5;let up=Math.random()>.47;let c=document.createElement('div');c.className='candle';c.style.left=(i*1.58+1)+'%';c.style.top=(seed-h/2)+'%';c.style.height=h+'px';c.style.background=up?'#35d07f':'#ff5c6c';let wick=document.createElement('div');wick.className='wick';wick.style.height=(h+10)+'px';wick.style.top='-5px';c.appendChild(wick);box.appendChild(c)}}
+makeCandles();
+setInterval(()=>{if(!bot||killed)return;let t=Math.floor(48+Math.random()*45),v=Math.floor(55+Math.random()*40),vol=Math.floor(15+Math.random()*45);trend.style.width=t+'%';volume.style.width=v+'%';vol.style.width=vol+'%';trendVal.textContent=t+'%';volumeVal.textContent=v+'%';volVal.textContent=vol+'%';},3500);
+</script>
+
+<style>
+#v3bar{position:fixed;top:0;left:0;right:0;height:38px;background:#0b1020;border-bottom:1px solid #26314f;z-index:9999;display:flex;align-items:center;gap:12px;padding:0 16px;font:600 12px Inter,Arial;color:#cbd5e1}
+#v3bar .dot{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 12px #22c55e}
+#v3bar .spacer{flex:1}
+.v3btn{border:1px solid #334155;background:#111827;color:#e2e8f0;border-radius:7px;padding:6px 10px;cursor:pointer}
+.v3btn:hover{background:#1e293b}
+#v3panel{position:fixed;right:16px;top:52px;width:360px;max-height:calc(100vh - 70px);overflow:auto;background:#0b1222;color:#e5e7eb;border:1px solid #293653;border-radius:14px;box-shadow:0 20px 60px #0008;z-index:10000;display:none}
+#v3panel.open{display:block}
+.v3head{padding:14px 16px;border-bottom:1px solid #293653;display:flex;justify-content:space-between;align-items:center}
+.v3section{padding:14px 16px;border-bottom:1px solid #1e293b}
+.v3grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.v3card{background:#111827;border:1px solid #26314f;border-radius:9px;padding:10px}
+.v3label{font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em}
+.v3value{font-size:16px;font-weight:700;margin-top:4px}
+.v3select,.v3input{width:100%;box-sizing:border-box;background:#0f172a;color:#e5e7eb;border:1px solid #334155;border-radius:7px;padding:8px;margin-top:6px}
+.v3row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:8px 0}
+.v3switch{width:42px;height:22px;border-radius:20px;background:#334155;position:relative;cursor:pointer}
+.v3switch:after{content:"";position:absolute;width:18px;height:18px;top:2px;left:2px;border-radius:50%;background:white;transition:.2s}
+.v3switch.on{background:#16a34a}.v3switch.on:after{left:22px}
+.v3signal{padding:12px;border-radius:10px;background:#101827;border:1px solid #26314f}
+.v3signal strong{font-size:22px}
+.v3good{color:#4ade80}.v3warn{color:#fbbf24}.v3bad{color:#fb7185}
+#v3toast{position:fixed;bottom:18px;right:18px;z-index:11000;background:#111827;border:1px solid #334155;color:#e5e7eb;padding:11px 14px;border-radius:9px;display:none}
+body{padding-top:38px}
+</style>
+
+<div id="v3bar">
+  <span class="dot"></span><span>HAWII AI • BROWSER V3</span>
+  <span id="v3mode" class="v3warn">SIMULATION MODE</span>
+  <span class="spacer"></span>
+  <button class="v3btn" onclick="v3Open()">Trading Control</button>
+  <button class="v3btn" onclick="v3Toast('Security check completed')">Security</button>
+</div>
+
+<div id="v3panel">
+  <div class="v3head"><strong>Hawii AI Trading Control</strong><button class="v3btn" onclick="v3Open()">×</button></div>
+
+  <div class="v3section">
+    <div class="v3label">Market</div>
+    <select id="v3symbol" class="v3select" onchange="v3Refresh()">
+      <option>XAUUSD</option><option>EURUSD</option><option>GBPUSD</option><option>USDJPY</option><option>USDCHF</option><option>AUDUSD</option>
+    </select>
+    <select id="v3tf" class="v3select" onchange="v3Refresh()">
+      <option>M5</option><option>M15</option><option>H1</option>
+    </select>
+  </div>
+
+  <div class="v3section">
+    <div class="v3grid">
+      <div class="v3card"><div class="v3label">Trend</div><div id="v3trend" class="v3value v3good">BULLISH</div></div>
+      <div class="v3card"><div class="v3label">Volume</div><div id="v3volume" class="v3value">72%</div></div>
+      <div class="v3card"><div class="v3label">Volatility</div><div id="v3vol" class="v3value">58%</div></div>
+      <div class="v3card"><div class="v3label">RSI 14</div><div id="v3rsi" class="v3value">47.2</div></div>
+    </div>
+  </div>
+
+  <div class="v3section">
+    <div class="v3signal">
+      <div class="v3label">Hawii AI Signal</div>
+      <strong id="v3signal">WAIT</strong>
+      <div id="v3reason" style="margin-top:5px;font-size:12px;color:#94a3b8">Waiting for multi-factor confirmation.</div>
+    </div>
+  </div>
+
+  <div class="v3section">
+    <div class="v3label">Risk Management</div>
+    <div class="v3grid">
+      <label>Risk %<input id="v3risk" class="v3input" value="1" type="number" step=".1" min=".1" max="5"></label>
+      <label>SL %<input id="v3sl" class="v3input" value="1" type="number" step=".1" min=".1" max="10"></label>
+      <label>TP %<input id="v3tp" class="v3input" value="2" type="number" step=".1" min=".1" max="20"></label>
+      <label>Max trades<input id="v3max" class="v3input" value="3" type="number" min="1" max="20"></label>
+    </div>
+    <div class="v3row"><span>London session</span><div class="v3switch on" onclick="this.classList.toggle('on')"></div></div>
+    <div class="v3row"><span>New York session</span><div class="v3switch on" onclick="this.classList.toggle('on')"></div></div>
+    <div class="v3row"><span>News filter</span><div class="v3switch on" onclick="this.classList.toggle('on')"></div></div>
+  </div>
+
+  <div class="v3section">
+    <div class="v3label">Connections</div>
+    <div class="v3row"><span>JustMarkets MT5</span><span class="v3good">● Ready</span></div>
+    <div class="v3row"><span>TradingView</span><span class="v3good">● Ready</span></div>
+    <div class="v3row"><span>Telegram</span><span class="v3warn">● Not configured</span></div>
+  </div>
+
+  <div class="v3section">
+    <button class="v3btn" style="width:100%;padding:10px" onclick="v3PaperTrade()">Simulate Signal</button>
+    <button class="v3btn" style="width:100%;padding:10px;margin-top:8px" onclick="v3Kill()">Emergency Kill Switch</button>
+  </div>
+</div>
+<div id="v3toast"></div>
+
+<script>
+let v3Killed=false;
+function v3Open(){document.getElementById('v3panel').classList.toggle('open')}
+function v3Toast(t){const x=document.getElementById('v3toast');x.textContent=t;x.style.display='block';setTimeout(()=>x.style.display='none',2200)}
+function v3Refresh(){
+  if(v3Killed)return;
+  const s=document.getElementById('v3symbol').value;
+  const tf=document.getElementById('v3tf').value;
+  const seed=(s.length*17+tf.length*11+new Date().getMinutes())%100;
+  const rsi=(42+(seed%18)+Math.random()*2).toFixed(1);
+  const vol=55+(seed%35), volatility=40+(seed%50);
+  document.getElementById('v3rsi').textContent=rsi;
+  document.getElementById('v3volume').textContent=vol+'%';
+  document.getElementById('v3vol').textContent=volatility+'%';
+  const trend=seed%3===0?'BEARISH':seed%3===1?'BULLISH':'NEUTRAL';
+  const tr=document.getElementById('v3trend');tr.textContent=trend;tr.className='v3value '+(trend==='NEUTRAL'?'v3warn':trend==='BULLISH'?'v3good':'v3bad');
+  let sig='WAIT', reason='Waiting for multi-factor confirmation.';
+  if(trend==='BULLISH' && Number(rsi)<55 && vol>65){sig='BUY';reason='EMA trend + RSI + volume simulation aligned.'}
+  if(trend==='BEARISH' && Number(rsi)>45 && vol>65){sig='SELL';reason='EMA trend + RSI + volume simulation aligned.'}
+  document.getElementById('v3signal').textContent=sig;
+  document.getElementById('v3reason').textContent=reason;
+}
+function v3PaperTrade(){
+  if(v3Killed){v3Toast('Trading is disabled by kill switch');return}
+  const sig=document.getElementById('v3signal').textContent;
+  v3Toast(sig==='WAIT'?'No trade: confirmation incomplete.':'Paper trade '+sig+' created — no live order sent.');
+}
+function v3Kill(){
+  v3Killed=true;
+  document.getElementById('v3mode').textContent='KILL SWITCH ACTIVE';
+  document.getElementById('v3mode').className='v3bad';
+  document.getElementById('v3signal').textContent='DISABLED';
+  document.getElementById('v3reason').textContent='All simulated trade actions blocked.';
+  v3Toast('Emergency kill switch activated');
+}
+setInterval(v3Refresh,7000); setTimeout(v3Refresh,400);
+</script>
+
+</body>
+</html>
